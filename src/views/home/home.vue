@@ -1,10 +1,6 @@
 <template>
 	<div class="content" :style="{backgroundImage:'url('+bgurl+')'}">
-		<ul class="app-list">
-			<li class="list-item"><img src="@/assets/img/computer.png" alt=""><span>我的电脑</span></li>
-			<li class="list-item"><img src="@/assets/img/TrashIcon.png" alt=""><span>回收站</span></li>
-			<li class="list-item"><img src="@/assets/img/tool.png" alt=""><span>工具箱</span></li>
-		</ul>
+		
 	</div>
 </template>
 

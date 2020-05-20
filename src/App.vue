@@ -12,15 +12,19 @@
 				</keep-alive>
 			</transition>
 		</div>
-		
+
 		<!-- 底部tab栏 -->
 		<TheFooter></TheFooter>
+
+		<!-- 我的电脑 -->
+		<Computer :computerShow.sync='computerType'></Computer>
 	</div>
 </template>
 
 <script>
 	import TheHeader from '@/components/TheHeader'
 	import TheFooter from '@/components/TheFooter'
+	import Computer from '@/components/Computer'
 	import {
 		mapState,
 		mapMutations
@@ -29,7 +33,8 @@
 		name: 'app',
 		components: {
 			TheHeader,
-			TheFooter
+			TheFooter,
+			Computer
 		},
 		data() {
 			return {
@@ -37,7 +42,7 @@
 			}
 		},
 		computed: {
-			...mapState(["keepAlivePages"])
+			...mapState(["keepAlivePages" , "computerType" ])
 		},
 		watch: {
 			$route(to, from) {
@@ -48,7 +53,11 @@
 					this.transitionName = 'slide-left'
 				}
 				this.$router.isBack = false;
+
 			}
+		},
+		methods: {
+
 		}
 	}
 </script>
@@ -67,6 +76,7 @@
 
 		.container {
 			width: 100%;
+			height: calc(100vh - 30px);
 			// max-width: 960px;
 		}
 	}

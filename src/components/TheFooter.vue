@@ -1,11 +1,19 @@
 <template>
 	<div class="footerPage">
 		<div class="dock">
-			<ul>
+			<ul class="pcview">
+				<li v-for="(item,index) in iconList" :key="index" @click="topage">
+					<span>{{item.text}}</span>
+					<div><img :src="item.imgUrl"></div>
+					<!-- <a href="javascript:void(0)"><img :src="item.imgUrl"></a> -->
+				</li>
+			</ul>
+			<ul class="mobileview scrollInMobile">
 				<li v-for="(item,index) in iconList" :key="index">
 					<span>{{item.text}}</span>
 					<a href="javascript:void(0)"><img :src="item.imgUrl"></a>
 				</li>
+				<li></li>
 			</ul>
 		</div>
 	</div>
@@ -17,28 +25,40 @@
 		},
 		data() {
 			return {
-				iconList:[
-					{
-						text:'Finder',
-						imgUrl:require('@/assets/img/1.png')
+				iconList: [{
+						text: 'Html',
+						imgUrl: require('@/assets/img/html.png')
 					},
 					{
-						text:'Chrome',
-						imgUrl:require('@/assets/img/2.png')
+						text: 'Css',
+						imgUrl: require('@/assets/img/css.png')
 					},
 					{
-						text:'Codepen',
-						imgUrl:require('@/assets/img/5.png')
+						text: 'Js',
+						imgUrl: require('@/assets/img/js.png')
 					},
 					{
-						text:'Launchpad',
-						imgUrl:require('@/assets/img/6.png')
+						text: 'Vue',
+						imgUrl: require('@/assets/img/vue.png')
 					},
 					{
-						text:'System setup',
-						imgUrl:require('@/assets/img/7.png')
+						text: 'React',
+						imgUrl: require('@/assets/img/react.png')
 					},
+					{
+						text: 'Angular',
+						imgUrl: require('@/assets/img/angular.png')
+					},
+					{
+						text: 'Node',
+						imgUrl: require('@/assets/img/node.png')
+					}
 				]
+			}
+		},
+		methods:{
+			topage(){
+				this.$router.push(`book`)
 			}
 		}
 	}
@@ -52,10 +72,27 @@
 		background: rgba(255, 255, 255, 0.5);
 		border-radius: 10px 10px 0 0;
 		text-align: center;
+
 		.dock {
 			width: 100%;
 			text-align: center;
 			margin: 0 auto;
+			.scrollInMobile{
+				width: auto;
+				display: flex;
+				flex-direction: row;
+				overflow-x: scroll;
+				li:hover img {
+					-webkit-transform: scale(1);
+					margin: 0;
+				}
+				
+				li:hover+li img,
+				li.prev img {
+					-webkit-transform: scale(1);
+					margin: 0;
+				}
+			}
 		}
 
 		li {
@@ -101,18 +138,4 @@
 			color: #fff;
 		}
 	}
-	
-	@media (max-width: 480px) {
-		.footerPage{
-			width: 90%;
-		}
-	}
-	
-	@media (min-width: 800px) {
-		.footerPage{
-			left: calc(50% - 400px);
-			width: 800px;
-		}
-	}
-	
 </style>

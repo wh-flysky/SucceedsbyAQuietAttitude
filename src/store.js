@@ -6,6 +6,7 @@ export default new Vuex.Store({
     state: {
         keepAlivePages:[],
 		title: sessionStorage.getItem('title'),
+		computerType:false
     },
     mutations: {
         setTitle(state, value) {
@@ -15,7 +16,10 @@ export default new Vuex.Store({
         },
         setKeepPages(state, value) {
             state.keepAlivePages = value;
-        }
+        },
+		setComputer(state , value){
+			state.computerType = value;
+		}
 
     },
     actions: {

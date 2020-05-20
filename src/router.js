@@ -15,6 +15,26 @@ export default new Router({
             meta: {
                 title: '首页'
             }
+        },
+        {
+            path: '/book',
+            name: 'book',
+            component: () => import(/* webpackChunkName:'home' */ '@/views/book/book.vue'),
+            meta: {
+                title: '书籍'
+            }
         }
     ]
 })
+
+
+/**
+ * vue-router 高版本使用的是promise捕获造成router重复点击报错
+ * npm i vue-router@3.0 -S 重新安装版本解决
+ * 或者下面方法，不建议
+ */
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
