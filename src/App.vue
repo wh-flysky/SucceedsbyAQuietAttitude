@@ -5,19 +5,24 @@
 		<TheHeader></TheHeader>
 
 		<!-- 页面容器 -->
-		<div class="container">
+		<div class="container" @click="basenav">
 			<transition :name="transitionName">
 				<keep-alive :include="keepAlivePages">
-					<router-view />
+					<router-view :key="$route.fullPath" />
 				</keep-alive>
 			</transition>
 		</div>
 
 		<!-- 底部tab栏 -->
-		<TheFooter></TheFooter>
+		<TheFooter v-if="footerShow"></TheFooter>
 
 		<!-- 我的电脑 -->
 		<Computer :computerShow.sync='computerType'></Computer>
+		
+		<!-- 侧边栏 -->
+		<BaseNav :sideBarType.sync='sideBarType'></BaseNav>
+		
+		
 	</div>
 </template>
 
@@ -25,6 +30,7 @@
 	import TheHeader from '@/components/TheHeader'
 	import TheFooter from '@/components/TheFooter'
 	import Computer from '@/components/Computer'
+	import BaseNav from '@/components/BaseNav'
 	import {
 		mapState,
 		mapMutations
@@ -34,7 +40,8 @@
 		components: {
 			TheHeader,
 			TheFooter,
-			Computer
+			Computer,
+			BaseNav
 		},
 		data() {
 			return {
@@ -42,10 +49,17 @@
 			}
 		},
 		computed: {
-			...mapState(["keepAlivePages" , "computerType" ])
+			...mapState(["keepAlivePages", "computerType" ,"footerShow","sideBarType"])
 		},
 		watch: {
 			$route(to, from) {
+				// console.log(to)
+				if (to.name == 'category' || to.name == 'book') {
+					this.setFootshow(false)
+					this.setComputer(false)
+				} else {
+					this.setFootshow(true)
+				}
 				let isBack = this.$router.isBack;
 				if (isBack) {
 					this.transitionName = 'slide-right'
@@ -57,7 +71,10 @@
 			}
 		},
 		methods: {
-
+			...mapMutations(["setFootshow" , "setSiderBar" , "setComputer"]),
+			basenav(){
+				this.setSiderBar(false)
+			}
 		}
 	}
 </script>

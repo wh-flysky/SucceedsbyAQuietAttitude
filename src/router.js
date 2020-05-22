@@ -2,29 +2,38 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 export default new Router({
-    mode: 'hash',
-    routes: [
-        {
-            path: '/',
-            redirect: '/home',
-        },
-        {
-            path: '/home',
-            name: 'home',
-            component: () => import(/* webpackChunkName:'home' */ '@/views/home/home.vue'),
-            meta: {
-                title: '首页'
-            }
-        },
-        {
-            path: '/book',
-            name: 'book',
-            component: () => import(/* webpackChunkName:'home' */ '@/views/book/book.vue'),
-            meta: {
-                title: '书籍'
-            }
-        }
-    ]
+	mode: 'hash',
+	routes: [{
+			path: '/',
+			redirect: '/home',
+		},
+		{
+			path: '/home',
+			name: 'home',
+			component: () => import( /* webpackChunkName:'home' */ '@/views/home/home.vue'),
+			meta: {
+				title: '首页'
+			}
+		},
+		{
+			path: '/book/:postid',
+			name: 'book',
+			component: () => import( /* webpackChunkName:'home' */ '@/views/book/book.vue'),
+			meta: {
+				title: '书籍'
+			}
+		},
+		{
+			path: '/categories',
+			component: () => import( /* webpackChunkName:'category' */ '@/views/categoryList/categoryList'),
+			name: 'categorylist'
+		},
+		{
+			path: '/categories/:number',
+			component: () => import( /* webpackChunkName:'category' */ '@/views/categoryList/category'),
+			name: 'category'
+		},
+	]
 })
 
 
@@ -36,5 +45,5 @@ export default new Router({
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
+	return originalPush.call(this, location).catch(err => err)
 }

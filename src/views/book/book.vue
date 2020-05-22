@@ -3,18 +3,27 @@
 		<header class="topBox_2Rd7RuN9">
 			<BaseBack @click.native="$router.push($route.params.parentPath || '/')">返回</BaseBack>
 		</header>
-		<section v-html="string" class="sectionPage">
-		</section>
+		<article class="article">
+			<h1 class="title">{{articeTitle}}</h1>
+			<div class="main" v-html="initalArticle" />
+		</article>
 	</div>
 </template>
 
 <script>
+	import marked from 'marked'
+	import BaseArticle from '@/components/BaseArticle'
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from "vuex";
 	import BaseBack from '@/components/BaseBack'
-	import DomData from '@/utils/htmlString'
 	export default {
 		name: 'book',
 		components: {
-			BaseBack
+			BaseBack,
+			BaseArticle
 		},
 		data() {
 			return {
@@ -22,13 +31,26 @@
 			}
 		},
 		computed: {
-
+			...mapState(["reqData", "articeText" ,"articeTitle"]),
+			initalArticle() {
+				return marked(this.articeText, {
+					headerIds: false
+				})
+			},
+			postId() {
+				return this.$route.params.postid
+			},
 		},
-		mounted() {
-			this.string = DomData.number1;
+		async mounted() {
+			await this.getPostWithTheData(this.postId)
+		},
+		activated(){
+			console.log('---')
+			this.getPostWithTheData(this.$route.params.postid)
 		},
 		methods: {
-
+			...mapMutations(["setComputer"]),
+			...mapActions(["getCategoryByNumber", "getPostWithTheData"]),
 		}
 	}
 </script>
@@ -36,6 +58,21 @@
 <style lang="scss">
 	.warp {
 		height: 100%;
+		box-sizing: border-box;
+		padding: 0 10px;
+		background-color: #FAFAFA;
+	}
+
+	.article {
+		display: flex;
+		flex-flow: column;
+		box-sizing: border-box;
+		height: calc(100% - 90px);
+		padding: 14px;
+		margin-top: 10px;
+		border-radius: 6px;
+		background: #fff;
+		box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
 	}
 
 	.sectionPage {
@@ -43,6 +80,94 @@
 		padding: 0 10px 10px;
 		height: calc(100% - 150px);
 		overflow-y: scroll;
+	}
+
+
+	.main {
+		flex: 1;
+		margin-top: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		font-size: 14px;
+		line-height: 2;
+		word-break: break-all;
+		-webkit-overflow-scrolling: touch;
+		text-align: left;
+
+		& a {
+			text-decoration: underline;
+		}
+
+		& h2 {
+			margin-bottom: 18px;
+			border-bottom: 2px solid #efeaea;
+			font-weight: normal;
+			font-size: 1.3em;
+		}
+
+		& h3 {
+			margin: 12px 0 8px;
+			font-size: 1.2em;
+			line-height: 1.2;
+
+			&::after {
+				width: 2px;
+				padding-left: 6px;
+				color: #2175bc;
+				content: '|';
+			}
+		}
+
+		& code {
+			padding: .2em .4em;
+			border-radius: 3px;
+			font-size: 90%;
+			background: rgba(27, 31, 35, .05);
+		}
+
+		& pre {
+			display: block;
+			padding: 1em;
+			border: 2px solid #ddd;
+			border-radius: 4px;
+			overflow-x: auto;
+			line-height: 1.6;
+			background: #f8f8f8;
+			-webkit-overflow-scrolling: touch;
+
+			& code {
+				padding: 0;
+				background: none;
+			}
+		}
+
+		& img {
+			max-width: 100%;
+		}
+
+		& table {
+			width: 100%;
+			line-height: 1.5;
+			text-align: center;
+		}
+
+		& td,
+		& th {
+			padding: 6px 12px;
+			border: 1px solid #ddd;
+		}
+
+		@media screen and (max-width: 320px) {
+			& iframe {
+				max-width: 272px;
+			}
+		}
+	}
+
+	@media all and (min-width: 900px) {
+		.main {
+			font-size: 16px;
+		}
 	}
 
 	.wrap_YgpFyIWY {
@@ -297,23 +422,6 @@
 	.control_knHdb2YT {
 		padding: 0 10px;
 		cursor: pointer
-	}
-
-	.article_QAjzWhrP {
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-ms-flex-flow: column;
-		flex-flow: column;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		padding: 14px;
-		border-radius: 6px;
-		background: #fff;
-		-webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
-		box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12)
 	}
 
 	h3 {

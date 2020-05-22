@@ -5,6 +5,10 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from "vuex";
 	export default {
 		name: 'home',
 		props: {
@@ -14,6 +18,9 @@
 			return {
 				bgurl: require("@/assets/img/bg.jpg")
 			}
+		},
+		methods: {
+			
 		}
 	}
 </script>

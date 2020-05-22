@@ -156,8 +156,6 @@ const HtmlDom = {
 				<p>【公用代码内联】</p>
 				<p>  使用html-webpack-inline-chunk-plugin插件将mainfest.js内联到html文件中</p>
 				</div></article>
-		
-	
 	`
 }
 

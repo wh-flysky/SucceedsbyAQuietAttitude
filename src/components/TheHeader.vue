@@ -17,7 +17,7 @@
 				<li class="iconfont">&#xe6ca;</li>
 				<li class="iconfont">&#xe6a7;</li>
 				<li class="iconfont">&#xe6cb;</li> -->
-				<li class="iconfont">&#xe6b8;</li>
+				<li class="iconfont" @click="basenav">&#xe6b8;</li>
 				<li class="iconfont"></li>
 			</ul>
 		</div>
@@ -31,6 +31,9 @@
 		mapMutations
 	} from "vuex";
 	export default {
+		computed: {
+			...mapState(["sideBarType"])
+		},
 		props: {
 			msg: String
 		},
@@ -40,13 +43,17 @@
 			}
 		},
 		methods: {
-			...mapMutations(["setComputer"]),
+			...mapMutations(["setComputer" , "setSiderBar"]),
 			/**
-			 * 打开我的电脑
+			 * computer 打开我的电脑
+			 * basenav 打开侧边栏
 			 */
-			computer() {
+			computer(){
 				this.setComputer(true)
 			},
+			basenav(){
+				this.setSiderBar(!this.sideBarType)
+			}
 		}
 	}
 </script>
