@@ -1,5 +1,5 @@
 <template>
-	<article class="box">
+	<article class="box" :style="{width:boxwidth}">
 		<BaseBack @click.native="$router.push($route.params.parentPath || '/')">类别列表</BaseBack>
 		<BaseTitle>{{ reqDes.name }}知识体系</BaseTitle>
 		<section class="main">
@@ -34,7 +34,10 @@
 			paramsNumber() {
 				return this.$route.params.number
 			},
-			...mapState(["reqData", "reqDes"]),
+			...mapState(["reqData", "reqDes" , "markdownStatus" ]),
+			boxwidth(){
+				return this.markdownStatus ? '50%' : '100%'
+			}
 		},
 		async mounted() {
 			await this.getCategoryByNumber(Number(this.paramsNumber))
@@ -51,11 +54,14 @@
 		flex-flow: column;
 		align-items: flex-start;
 		box-sizing: border-box;
-		height: 100%;
+		height: calc(100vh - 30px);
 		padding: 10px;
 		font-size: 1.1em;
 		line-height: 2.2;
 		background-color: #fafafa;
+		position: absolute;
+		top: 30px;
+		right: 0;
 	}
 
 	.main {

@@ -7,10 +7,17 @@ import dsBridge from './utils/app.js';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
+
+
+
 /**
  * 引入vantui
  */
 Vue.use(Vant);
+
+Vue.use(iView)
 
 /**
  *  解决安卓input框自动弹起键盘并推起页面

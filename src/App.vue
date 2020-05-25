@@ -22,6 +22,8 @@
 		<!-- 侧边栏 -->
 		<BaseNav :sideBarType.sync='sideBarType'></BaseNav>
 		
+		<!-- markdown -->
+		<Markdown v-if="markdownStatus"></Markdown>
 		
 	</div>
 </template>
@@ -31,6 +33,7 @@
 	import TheFooter from '@/components/TheFooter'
 	import Computer from '@/components/Computer'
 	import BaseNav from '@/components/BaseNav'
+	import Markdown from '@/components/Markdown'
 	import {
 		mapState,
 		mapMutations
@@ -41,7 +44,8 @@
 			TheHeader,
 			TheFooter,
 			Computer,
-			BaseNav
+			BaseNav,
+			Markdown
 		},
 		data() {
 			return {
@@ -49,7 +53,7 @@
 			}
 		},
 		computed: {
-			...mapState(["keepAlivePages", "computerType" ,"footerShow","sideBarType"])
+			...mapState(["keepAlivePages", "computerType" ,"footerShow","sideBarType","markdownStatus"])
 		},
 		watch: {
 			$route(to, from) {
@@ -90,7 +94,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
+		
 		.container {
 			width: 100%;
 			height: calc(100vh - 30px);

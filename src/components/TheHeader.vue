@@ -6,13 +6,14 @@
 					<span class="mobileview">&#xe60b;</span>
 					<span @click="computer" class="pcview">&#xe60b;</span>
 				</li>
-				<!-- 				<li>文件</li>
-				<li>壁纸</li>
+				<li @click="markdown">MD</li>
+				<!-- <li>壁纸</li>
 				<li>关于</li> -->
 			</ul>
 			<span>succeeds by a quiet attitude</span>
 			<ul class="header-right">
-				<!-- 				<li class="iconfont">&#xe6c0;</li>
+				<li class="iconfont" @click="mdshow"><i class="fa fa-folder" aria-hidden="true"></i></li>
+<!-- 								<li class="iconfont">&#xe6c0;</li>
 				<li class="iconfont">&#xe688;</li>
 				<li class="iconfont">&#xe6ca;</li>
 				<li class="iconfont">&#xe6a7;</li>
@@ -32,7 +33,7 @@
 	} from "vuex";
 	export default {
 		computed: {
-			...mapState(["sideBarType"])
+			...mapState(["sideBarType" , "markdownStatus"])
 		},
 		props: {
 			msg: String
@@ -43,7 +44,7 @@
 			}
 		},
 		methods: {
-			...mapMutations(["setComputer" , "setSiderBar"]),
+			...mapMutations(["setComputer" , "setSiderBar" , "setMarkdown"]),
 			/**
 			 * computer 打开我的电脑
 			 * basenav 打开侧边栏
@@ -53,6 +54,12 @@
 			},
 			basenav(){
 				this.setSiderBar(!this.sideBarType)
+			},
+			markdown(){
+				this.setMarkdown(!this.markdownStatus)
+			},
+			mdshow(){
+				this.$router.push('/mdshow')
 			}
 		}
 	}

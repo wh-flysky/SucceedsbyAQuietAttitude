@@ -27,6 +27,7 @@ export default new Vuex.Store({
 	 * articeText 解码后的html
 	 * articeTitle 文章title
 	 * sideBar 侧边栏显示隐藏
+	 * markdownStatus md页面显示隐藏
 	 */
 	state: {
 		keepAlivePages: [],
@@ -39,8 +40,8 @@ export default new Vuex.Store({
 		articeList: Artice,
 		articeText:'',
 		articeTitle:"",
-		sideBarType:false
-		
+		sideBarType:false,
+		markdownStatus:false
 	},
 	getters: {
 		// 获取列表
@@ -96,6 +97,9 @@ export default new Vuex.Store({
 		},
 		setSiderBar(state , value){
 			state.sideBarType = value;
+		},
+		setMarkdown(state , value){
+			state.markdownStatus = value;
 		}
 
 	},

@@ -56,6 +56,17 @@ module.exports = {
 	// webpack 配置，键值对象时会合并配置，为方法时会改写配置
 	// https://cli.vuejs.org/guide/webpack.html#simple-configuration
 	configureWebpack: (config) => {
+		config.module.rules.push({
+			// 处理markdown文件
+			test: /\.md$/,
+			use: [{
+					loader: "vue-loader"
+				},
+				{
+					loader: require.resolve("./src/utils/markdownLoader")
+				}
+			],
+		}, );
 		// config.externals = {
 		//     'vue': 'Vue',
 		//     'element-ui': 'ELEMENT',
@@ -97,7 +108,7 @@ module.exports = {
 
 		// 是否构建样式地图，false 将提高构建速度
 		sourceMap: false,
-		
+
 		// css预设器配置项
 		loaderOptions: {
 			sass: {

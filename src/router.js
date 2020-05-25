@@ -33,6 +33,11 @@ export default new Router({
 			component: () => import( /* webpackChunkName:'category' */ '@/views/categoryList/category'),
 			name: 'category'
 		},
+		{
+			path: '/mdshow',
+			component: () => import( /* webpackChunkName:'mdshow' */ '@/views/mdshow/mdshow'),
+			name: 'mdshow'
+		}
 	]
 })
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="warp">
+	<div class="warp" :style="{width:boxwidth}">
 		<header class="topBox_2Rd7RuN9">
 			<BaseBack @click.native="$router.push($route.params.parentPath || '/')">返回</BaseBack>
 		</header>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-	import marked from 'marked'
 	import BaseArticle from '@/components/BaseArticle'
+	import marked from 'marked'
 	import {
 		mapState,
 		mapMutations,
@@ -31,21 +31,24 @@
 			}
 		},
 		computed: {
-			...mapState(["reqData", "articeText" ,"articeTitle"]),
+			...mapState(["reqData", "articeText" ,"articeTitle" ,"markdownStatus"]),
 			initalArticle() {
 				return marked(this.articeText, {
-					headerIds: false
+					headerIds: false,
+					sanitize: true
 				})
 			},
 			postId() {
 				return this.$route.params.postid
 			},
+			boxwidth(){
+				return this.markdownStatus ? '50%' : '100%'
+			}
 		},
 		async mounted() {
 			await this.getPostWithTheData(this.postId)
 		},
 		activated(){
-			console.log('---')
 			this.getPostWithTheData(this.$route.params.postid)
 		},
 		methods: {
@@ -55,12 +58,16 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	@import "../../style/github-markdown.css";
 	.warp {
-		height: 100%;
+		height: calc(100vh - 30px);
 		box-sizing: border-box;
 		padding: 0 10px;
 		background-color: #FAFAFA;
+		position: absolute;
+		top: 46px;
+		right: 0;
 	}
 
 	.article {
